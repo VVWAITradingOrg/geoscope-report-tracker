@@ -17,7 +17,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import DIR, all_pending_keys, is_delivered, load_pending  # noqa: E402
 
-MODEL = os.environ.get("MODEL", "gpt-5.6-sol")
+MODEL = os.environ.get("MODEL", "gpt-5.6-terra")
 MERGE_WINDOW_MINUTES = int(os.environ.get("MERGE_WINDOW_MINUTES", "15"))
 MAX_BODY_CHARS = 12000
 

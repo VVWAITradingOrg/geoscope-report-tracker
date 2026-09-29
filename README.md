@@ -1,6 +1,6 @@
 # geoscope-report-tracker
 
-Mac mini 上由 LaunchAgent 定时轮询触发、Codex CLI `gpt-5.6-sol` 做结构化摘要的 GeoScope 研报追踪。跟踪 `ljianhui90@gmail.com` 里来自 `updates@mail.geoscopeapp.com` 的研报推送邮件，为每篇文章生成核心观点/标的多空摘要，投递到对应 Discord 频道。OpenClaw 不参与分析，只作为 Discord 传输层。
+Mac mini 上由 LaunchAgent 定时轮询触发、Codex CLI `gpt-5.6-terra` 做结构化摘要的 GeoScope 研报追踪。跟踪 `ljianhui90@gmail.com` 里来自 `updates@mail.geoscopeapp.com` 的研报推送邮件，为每篇文章生成核心观点/标的多空摘要，投递到对应 Discord 频道。OpenClaw 不参与分析，只作为 Discord 传输层。
 
 ## Run
 
@@ -22,7 +22,7 @@ Mac mini 上由 LaunchAgent 定时轮询触发、Codex CLI `gpt-5.6-sol` 做结�
 ## Credentials and delivery
 
 - Gmail 读取：复用 `gog` CLI 已授权的 `ljianhui90@gmail.com`（scope 含 gmail），项目不新存任何凭据
-- 分析：Codex CLI `gpt-5.6-sol`，复用本机 ChatGPT 登录状态，项目不存 API key
+- 分析：Codex CLI `gpt-5.6-terra`，复用本机 `ljianhui100@gmail.com` 的 ChatGPT 登录状态，项目不存 API key
 - Discord：调用 `openclaw message send --account default`，凭据由 OpenClaw 现有配置管理；项目不读取或保存 bot token
 - 目标频道：见 `config/sources.json`（只存频道 ID，不是密钥）；新增来源在这里加一行映射即可
 

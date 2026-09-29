@@ -2,6 +2,7 @@
 import json
 import os
 import subprocess
+import time
 from pathlib import Path
 
 DIR = Path(__file__).resolve().parent.parent
@@ -15,9 +16,16 @@ GOG_ACCOUNT = os.environ.get("GOG_ACCOUNT", "ljianhui90@gmail.com")
 
 def gog_json(*args):
     cmd = ["gog", "gmail", *args, "-a", GOG_ACCOUNT, "--json"]
-    out = subprocess.run(cmd, capture_output=True, text=True)
+    for attempt in range(3):
+        out = subprocess.run(cmd, capture_output=True, text=True)
+        if out.returncode == 0:
+            break
+        if attempt == 2 or not any(reason in out.stderr for reason in
+                ("rateLimitExceeded", "userRateLimitExceeded", "429 Too Many Requests")):
+            break
+        time.sleep(20 * (attempt + 1))
     if out.returncode != 0:
-        raise RuntimeError(f"gog failed: {' '.join(cmd)}\n{out.stderr}")
+        raise RuntimeError(f"gog failed (exit={out.returncode}): {out.stderr[:300]}")
     return json.loads(out.stdout)
 
 
